@@ -1,0 +1,31 @@
+{
+  "name": "event-friend-finder",
+  "version": "1.0.0",
+  "description": "CPSC 473 - Project 01. Event Friend Finder.",
+  "main": "index.js",
+  "dependencies": {
+    "deployd": "^1.0.0",
+    "deployd-cli": "^2.0.2",
+    "dpd-clientlib": "^0.0.1",
+    "dpd-dashboard": "^0.0.2",
+    "dpd-fileupload": "0.0.17"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=6.9.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p0six/cpsc473_project01.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/p0six/cpsc473_project01/issues"
+  },
+  "homepage": "https://github.com/p0six/cpsc473_project01#readme"
+}

@@ -1,0 +1,101 @@
+{
+	"type": "Collection",
+	"properties": {
+		"ownerId": {
+			"name": "ownerId",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "ownerId",
+			"order": 0
+		},
+		"start": {
+			"name": "start",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "start",
+			"order": 1
+		},
+		"end": {
+			"name": "end",
+			"type": "number",
+			"typeLabel": "number",
+			"required": true,
+			"id": "end",
+			"order": 2
+		},
+		"title": {
+			"name": "title",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "title",
+			"order": 3
+		},
+		"description": {
+			"name": "description",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "description",
+			"order": 4
+		},
+		"streetAddress": {
+			"name": "streetAddress",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "streetAddress",
+			"order": 5
+		},
+		"city": {
+			"name": "city",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "city",
+			"order": 6
+		},
+		"statePrefix": {
+			"name": "statePrefix",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "statePrefix",
+			"order": 7
+		},
+		"zip": {
+			"name": "zip",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "zip",
+			"order": 8
+		},
+		"url": {
+			"name": "url",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "url",
+			"order": 9
+		},
+		"eventImage": {
+			"name": "eventImage",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "eventImage",
+			"order": 10
+		},
+		"tags": {
+			"name": "tags",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "tags",
+			"order": 11
+		}
+	}
+}

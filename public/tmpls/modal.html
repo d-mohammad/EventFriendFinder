@@ -1,0 +1,133 @@
+<%
+	event.date_start = new Date(event.start);
+	event.date_end = new Date(event.end);
+%>
+
+	<div class="event-details" id="eventInfo" style="width:100%;">
+		<div id="event-image">
+			<img src=<%= event.eventImage %> id="modalPicture">
+		</div>
+		<div id="event-information">
+			Location: <%= event.streetAddress %>, <%= event.city %>, <%= event.statePrefix %> <%= event.zip %><br><br>
+			Start Date: <%= event.date_start.toLocaleString() %><br>
+			<br>
+			End Date: <%= event.date_end.toLocaleString() %><br>
+			<br>
+			Description:  <%= event.description %><br><br>
+			<div>
+				<button id="attending" type="button" class="btn btn-primary" data-eventid=<%= event.id%>>
+					Attending?
+				</button>
+				<button id="showAttending" type="button" class="btn btn-primary" data-eventid=<%= event.id%>>
+					Attendees
+				</button>
+			</div>
+		</div>
+
+
+	</div>
+
+
+<script>
+	//add user to list of attendees when clicked
+	$('#attending').click(function() {
+		eventid = $(this).attr('data-eventid');
+		//get logged in user and add them to list
+		dpd.users.me(function(user, error) {
+			if (error)
+				swal({
+          title: 'Gotta Login First!',
+          text: 'No Logged in user found.',
+          type: 'error',
+          confirmButtonText: 'Cool'
+        });
+			else {
+			//user found
+			//check if user in list - if error, post, else, delete
+			dpd.attendance.get({userId:user.id, eventId:eventid}, function(attendance, error) {
+					if (error || (attendance.length == 0)) {
+						//user is not in list
+						dpd.attendance.post ({
+							eventId : eventid,
+							userId : user.id
+						}, function(result,error) {
+								if (error)
+						      swal({
+		                title: 'Error Posting Attendance!',
+		                text: 'Try logging in first.',
+		                type: 'error',
+		                confirmButtonText: 'Cool'
+		              });
+								else {
+						      swal({
+		                title: 'Attendance Posted!',
+		                text: 'Now tell your friends to go with!',
+		                type: 'success',
+		                confirmButtonText: 'Cool'
+		              });
+								}
+						});//post attendance
+					}
+					else {
+						dpd.attendance.del({id: attendance[0].id}, function(attempt, error) {
+							if (error) {
+								swal({
+									title: 'Error Posting Attendance!',
+									text: 'An Error Occured While Deleting',
+									type: 'error',
+									confirmButtonText: 'Cool'
+								});
+							}
+							else {
+								swal({
+									title: 'Posted Attendance!',
+									text: 'You Are No Longer Attending!',
+									type: 'success',
+									confirmButtonText: 'Cool'
+								});
+							}
+						});//dpd.del
+				}//else
+			});//get attendance
+		}//user else
+		});//dpd.me
+	});//function
+
+	$('#showAttending').click(function() {
+		eventid = $(this).attr('data-eventid');
+		$('#attendingList').html("");
+		console.log(eventid);
+		dpd.attendance.get({eventId: eventid}, function(result, error) {
+			if (error || !eventid) {
+				swal({
+          title: 'An Error Occurred!',
+          text: JSON.stringify(error),
+          type: 'error',
+          confirmButtonText: 'Cool'
+        })
+			}
+			else {
+					result.forEach(function(event) {
+						dpd.users.get({id:event.userId}, function (result, error) {
+							if (error)
+				        swal({
+                  title: 'An Error Occurred?',
+                  text: JSON.stringify(error),
+                  type: 'error',
+                  confirmButtonText: 'Cool'
+                })
+							else {
+								var ul = document.getElementById('attendingList');
+								var li = document.createElement("li");
+								li.appendChild(document.createTextNode(result.firstName + " " + result.lastName));
+								ul.appendChild(li);
+							}
+						});
+					});
+					$('#eventModal').modal('hide');
+					$('#attending-modal').modal('show');
+			}
+
+		})
+	});
+</script>
